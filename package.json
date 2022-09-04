@@ -1,0 +1,15 @@
+{
+  "name": "arceus",
+  "version": "1.0.0",
+  "description": "A Discord Moderation Bot. Made with love, by Surya!",
+  "main": "index.js",
+  "scripts": {
+    "test": "arc"
+  },
+  "author": "Surya (auspicious946)",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.10.3",
+    "dotenv": "^16.0.2"
+  }
+}
