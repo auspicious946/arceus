@@ -9,16 +9,27 @@ const client = new Discord.Client({
     ]
 })
 
+console.log("Arceus is waking up from His sleep...")
+
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`)
 })
 
-client.on("messageCreate", (message) =>{
-    if (message.content == "hi"){
-        message.reply("Hello World!")
-    }
-})
+let bot = {
+    client,
+    prefix: ["arc", "arceus"],
+    owners: ["784805830611697665", "839824624178823188"]
+}
 
+client.commands = new Discord.Collection()
+client.events = new Discord.Collection()
+
+client.loadEvents = (bot, reload) => require("./handlers/events")(bot, reload)
+client.loadCommands = (bot, reload) => require("./handlers/commands")(bot, reload)
+
+client.loadEvents(bot, false)
+
+module.exports = bot
 
 const welcomeChannelId = "1012068960365199410"
 
