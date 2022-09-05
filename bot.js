@@ -1,3 +1,5 @@
+console.log("Arceus is waking up from His sleep...")
+
 const Discord = require("discord.js")
 require("dotenv").config()
 
@@ -9,12 +11,6 @@ const client = new Discord.Client({
     ]
 })
 
-console.log("Arceus is waking up from His sleep...")
-
-client.on("ready", () => {
-    console.log(`Logged in as ${client.user.tag}`)
-})
-
 let bot = {
     client,
     prefix: ["arc", "arceus"],
@@ -23,13 +19,30 @@ let bot = {
 
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
+client.slashcommands = new Discord.Collection()
+client.buttons = new Discord.Collection()
 
 client.loadEvents = (bot, reload) => require("./handlers/events")(bot, reload)
 client.loadCommands = (bot, reload) => require("./handlers/commands")(bot, reload)
+client.loadSlashCommands = (bot, reload) => require("./handlers/slashcommands")(bot, reload)
+client.loadButtons = (bot, reload) => require("./handlers/buttons")(bot, reload)
 
 client.loadEvents(bot, false)
+client.loadCommands(bot, false)
+client.loadSlashCommands(bot, false)
+client.loadButtons(bot, false)
 
-module.exports = bot
+client.on("ready", () => {
+    console.log(`Succesfully logged in as ${client.user.tag}`)
+    
+    client.user.setStatus('dnd')
+    client.user.setPresence({
+        game: {
+            name: 'Surya edit my code',
+            type: 'WATCHING'
+        }
+    });
+})
 
 const welcomeChannelId = "1012068960365199410"
 
@@ -40,5 +53,7 @@ client.on("guildMemberAdd", async (member) => {
         files: [img]
     })
 })
+
+module.exports = bot
 
 client.login(process.env.TOKEN)
