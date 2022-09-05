@@ -1,3 +1,3 @@
-###### Arceus
+# Arceus
 
 #### A Discord Moderation Bot
